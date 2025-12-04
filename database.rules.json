@@ -1,0 +1,42 @@
+{
+  "rules": {
+    "config": {
+      ".read": true,
+      ".write": "root.child('users').child(auth.uid).child('role').val() === 'admin'"
+    },
+    "users": {
+      ".read": "root.child('users').child(auth.uid).child('role').val() === 'admin'",
+      "$uid": {
+        ".read": "$uid === auth.uid || root.child('users').child(auth.uid).child('role').val() === 'admin'",
+        ".write": "$uid === auth.uid || root.child('users').child(auth.uid).child('role').val() === 'admin'",
+        "balance": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "totalEarned": {
+           ".validate": "newData.isNumber()"
+        }
+      }
+    },
+    "orders": {
+      ".read": "root.child('users').child(auth.uid).child('role').val() === 'admin'",
+      "$uid": {
+        ".read": "$uid === auth.uid || root.child('users').child(auth.uid).child('role').val() === 'admin'",
+        ".write": "$uid === auth.uid || root.child('users').child(auth.uid).child('role').val() === 'admin'"
+      }
+    },
+    "transactions": {
+      ".read": "root.child('users').child(auth.uid).child('role').val() === 'admin'",
+      "$uid": {
+        ".read": "$uid === auth.uid || root.child('users').child(auth.uid).child('role').val() === 'admin'",
+        ".write": "$uid === auth.uid || root.child('users').child(auth.uid).child('role').val() === 'admin'"
+      }
+    },
+    "notifications": {
+      ".read": true,
+      ".write": "root.child('users').child(auth.uid).child('role').val() === 'admin'"
+    }
+  }
+}
